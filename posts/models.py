@@ -7,6 +7,9 @@ class Post(models.Model):
 	description = models.TextField(verbose_name='Description')
 	user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='User')
 
+	def __str__(self):
+		return self.title
+
 	class Meta:
 		verbose_name = 'Post'
 		verbose_name_plural = 'Posts'
@@ -15,6 +18,9 @@ class Post(models.Model):
 class PostLike(models.Model):
 	post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Post')
 	user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='User')
+
+	def __str__(self):
+		return f"{self.post.title} is liked by {self.user.username}"
 
 	class Meta:
 		verbose_name = 'Post Like'
