@@ -1,8 +1,12 @@
 from django.urls import path
+from rest_framework import routers
 
-from .views import PostModelViewSet, PostLikeApiView
+from .views import PostViewSet, PostLikeApiView
+
+router = routers.SimpleRouter()
+router.register(r'', PostViewSet, basename='posts')
 
 urlpatterns = [
-	path('', PostModelViewSet.as_view({'post': 'create'}), name='posts'),
-	path('likes/', PostLikeApiView.as_view(), name='post_likes'),
+	path('likes/<int:pk>/', PostLikeApiView.as_view(), name="likes"),
 ]
+urlpatterns += router.urls
